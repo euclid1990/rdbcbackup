@@ -1,0 +1,40 @@
+version: "3.7"
+
+services:
+  rdbcbackup:
+    build: .
+    image: rdbcbackup:1.0
+    restart: on-failure
+    env_file:
+      - .env
+    environment:
+      MYSQL_HOST: mysql
+    volumes:
+      - ./backup:/backup
+      - ./logs:/logs
+      - ./scripts:/scripts
+    links:
+      - mysql
+    networks:
+      - internal
+    tty: true
+    stdin_open: true
+
+  mysql:
+    image: mysql:5.7
+    restart: on-failure
+    env_file:
+      - .env
+    volumes:
+      - mysql_data:/var/lib/mysql
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci --general-log=true --general-log-file=/var/log/mysql/query.log
+    networks:
+      - internal
+
+networks:
+  internal:
+    name: internal
+    driver: bridge
+
+volumes:
+  mysql_data:
