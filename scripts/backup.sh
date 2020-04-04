@@ -81,7 +81,7 @@ backup() {
     echo "- Database List:" ${databases[*]}
 
     # Retrieve backup time
-    now=$(date -u +"%Y%m%d%H%M%S")
+    now=$(date +"%Y%m%d%H%M%S")
     ext="sql"
 
     # Take each and dump
