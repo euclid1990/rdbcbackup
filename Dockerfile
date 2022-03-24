@@ -1,7 +1,7 @@
 FROM mysql:8.0.28
 
 RUN apt-get update \
-    && apt-get install -y cron gzip bzip2 openssl tzdata \
+    && apt-get install -y cron gzip bzip2 openssl tzdata gawk \
     && rm -rf /var/lib/apt/lists/*
 
 ENV TIMEZONE="UTC" \
