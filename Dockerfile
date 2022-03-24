@@ -1,6 +1,8 @@
-FROM alpine:3.11
+FROM mysql:8.0.28
 
-RUN apk add --update bash vim mysql-client gzip bzip2 openssl tzdata && rm -rf /var/cache/apk/*
+RUN apt-get update \
+    && apt-get install -y cron gzip bzip2 openssl tzdata \
+    && rm -rf /var/lib/apt/lists/*
 
 ENV TIMEZONE="UTC" \
     MYSQL_HOST="mysql" \
